@@ -1,5 +1,5 @@
-function Goodel (sheetName) {
-  return Goodel.Modeler(sheetName);
+function Goodel (sheetName, spreadsheetId) {
+  return Goodel.Modeler(sheetName, spreadsheetId);
 }
 
 
@@ -8,8 +8,8 @@ function Goodel (sheetName) {
  * It expects the first row to be a header with column names
  * Ie. it won't search that row.
  */
-Goodel.Modeler = function (sheetName) {
-  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet(),
+Goodel.Modeler = function (sheetName, spreadsheetId) {
+  var spreadsheet = (!spreadsheetId) ? SpreadsheetApp.getActiveSpreadsheet() : SpreadsheetApp.openById(spreadsheetId),
       sheet = spreadsheet.getSheetByName(sheetName),
       table = new Goodel.Table(sheet),
       columns = table.getRow(1).getValues()[0];
@@ -362,4 +362,3 @@ Goodel.Table.prototype._buildColumnMap = function () {
   
   this.columnMap = columnMap;
 }
-
